@@ -8,10 +8,6 @@
     "vscode": "^1.80.0"
   },
   "categories": ["Other"],
-  "activationEvents": [
-    "onView:avdExplorerView",
-    "onCommand:avdExplorer.refresh"
-  ],
   "main": "./extension.js",
   "contributes": {
     "viewsContainers": {
@@ -26,6 +22,7 @@
     "views": {
       "avdExplorer": [
         {
+          "icon": "$(device-mobile)",
           "id": "avdExplorerView",
           "name": "Android Virtual Devices"
         }
@@ -65,6 +62,11 @@
       {
         "command": "avdExplorer.openAvdManager",
         "title": "Open AVD Manager"
+      },
+      {
+        "command": "avdExplorer.stop",
+        "title": "Stop AVD",
+        "icon": "$(stop)"
       }
     ],
     "menus": {
@@ -83,6 +85,11 @@
       "view/item/context": [
         {
           "command": "avdExplorer.start",
+          "when": "viewItem == avd",
+          "group": "inline"
+        },
+        {
+          "command": "avdExplorer.stop",
           "when": "viewItem == avd",
           "group": "inline"
         },
@@ -123,5 +130,13 @@
         }
       }
     }
+  },
+  "scripts": {
+    "package": "vsce package --allow-missing-repository",
+    "install": "code --install-extension avd-explorer-0.0.1.vsix"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "vsce": "^2.15.0"
   }
 }
