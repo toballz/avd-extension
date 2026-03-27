@@ -1,0 +1,127 @@
+{
+  "name": "avd-explorer",
+  "displayName": "AVD Explorer",
+  "description": "List and launch Android emulators with per-AVD configurations",
+  "version": "0.0.1",
+  "publisher": "your-name",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": [
+    "onView:avdExplorerView",
+    "onCommand:avdExplorer.refresh"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "avdExplorer",
+          "title": "AVD Explorer",
+          "icon": "$(device-mobile)"
+        }
+      ]
+    },
+    "views": {
+      "avdExplorer": [
+        {
+          "id": "avdExplorerView",
+          "name": "Android Virtual Devices"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "avdExplorer.refresh",
+        "title": "Refresh AVDs",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "avdExplorer.start",
+        "title": "Start AVD",
+        "icon": "$(play)"
+      },
+      {
+        "command": "avdExplorer.editParams",
+        "title": "Edit Parameters",
+        "icon": "$(pencil)"
+      },
+      {
+        "command": "avdExplorer.deleteConfig",
+        "title": "Delete Configuration",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "avdExplorer.showConfig",
+        "title": "Show Configuration",
+        "icon": "$(info)"
+      },
+      {
+        "command": "avdExplorer.configureSdk",
+        "title": "Configure Android SDK",
+        "icon": "$(settings-gear)"
+      },
+      {
+        "command": "avdExplorer.openAvdManager",
+        "title": "Open AVD Manager"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "avdExplorer.refresh",
+          "when": "view == avdExplorerView",
+          "group": "navigation"
+        },
+        {
+          "command": "avdExplorer.configureSdk",
+          "when": "view == avdExplorerView",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "avdExplorer.start",
+          "when": "viewItem == avd",
+          "group": "inline"
+        },
+        {
+          "command": "avdExplorer.editParams",
+          "when": "viewItem == avd",
+          "group": "inline"
+        },
+        {
+          "command": "avdExplorer.showConfig",
+          "when": "viewItem == avd",
+          "group": "context"
+        },
+        {
+          "command": "avdExplorer.deleteConfig",
+          "when": "viewItem == avd",
+          "group": "context"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "AVD Explorer",
+      "properties": {
+        "avdExplorer.emulatorPath": {
+          "type": "string",
+          "default": "emulator",
+          "description": "Path to emulator executable"
+        },
+        "avdExplorer.defaultParameters": {
+          "type": "string",
+          "default": "",
+          "description": "Default parameters for all AVDs"
+        },
+        "avdExplorer.showOnAndroidProjects": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show AVD Explorer only when Android project is open"
+        }
+      }
+    }
+  }
+}
